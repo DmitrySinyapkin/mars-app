@@ -9,7 +9,7 @@
   font-family: "Unicephalon";
   src: local("Unicephalon"),
    url("./fonts/unicephalon.otf") format("opentype");
-  font-weight: normal;
+  /*font-weight: normal;*/
 }
 
 * {
@@ -19,3 +19,10 @@
   background: black;
 }
 
+a:link, a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  transform: rotate(3deg);
+}

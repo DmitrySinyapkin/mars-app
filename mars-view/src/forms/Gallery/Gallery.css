@@ -2,6 +2,9 @@
   width: 100%;
   padding: 10px;
 }
+.gallery .loader__container {
+  margin-top: 20px;
+}
 .gallery .gallery__cantainer {
   width: 100%;
   height: 100%;

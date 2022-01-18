@@ -7,7 +7,7 @@ async function createFetch(url) {
     return await response.json();
 }
 
-export const getRoverPhotos = (rover, sol) => {
-    const url = BASE_URL + rover + '/photos?sol=' + sol + '&api_key=' + API_KEY_VALUE;
+export const getRoverPhotos = (rover, sol, page) => {
+    const url = BASE_URL + rover + '/photos?sol=' + sol + '&page=' + page + '&api_key=' + API_KEY_VALUE;
     return createFetch(url);
 }

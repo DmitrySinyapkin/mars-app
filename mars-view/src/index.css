@@ -9,7 +9,7 @@
   font-family: "Unicephalon";
   src: local("Unicephalon"),
    url("./fonts/unicephalon.otf") format("opentype");
-  /*font-weight: normal;*/
+  font-weight: normal;
 }
 
 * {

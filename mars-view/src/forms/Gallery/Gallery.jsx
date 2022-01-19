@@ -31,15 +31,17 @@ const Gallery = () => {
     useEffect(() => {
         console.log('fetching');
         if (fetching) {
-            setPage(page + 1);
             getRoverPhotos(rover, sol, page + 1)
-            .then(response => setPhotos([...photos, ...response.photos]))
+            .then(response => {
+                setPhotos([...photos, ...response.photos]);
+                setPage(page + 1);
+            })
             .finally(() => setFetching(false));
         }
     }, [fetching])
 
     const handleScroll = (event) => {
-        if ((event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 50) && photos.length < total) {
+        if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 20 && photos.length === total) {
             setFetching(true);
         }
     }
@@ -53,7 +55,7 @@ const Gallery = () => {
                     )}
                 </div>
             }
-            {fetching && <div className="loader__container"><Loader /></div>}
+            {fetching && photos.length < total && <div className="loader__container"><Loader /></div>}
         </div>
     );
 }

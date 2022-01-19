@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import './Gallery.css';
-import { getRoverPhotos } from "../../api/nasaApi";
+import { getRoverPhotos, getRoverInfo } from "../../api/nasaApi";
 import Loader from "../../components/Loader/Loader";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
 
 const Gallery = () => {
     const [loading, setLoading] = useState(true);
+    const [rover, setRover] = useState('curiosity');
+    const [sol, setSol] = useState(2);
+    const [total, setTotal] = useState(0);
     const [photos, setPhotos] = useState([]);
     const [page, setPage] = useState(1);
     const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
-        getRoverPhotos('curiosity', 150, page)
+        getRoverInfo(rover)
+            .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
+        getRoverPhotos(rover, sol, page)
             .then(response => {
                 setPhotos(response.photos);
                 setLoading(false);
@@ -24,18 +29,17 @@ const Gallery = () => {
     }, [])
 
     useEffect(() => {
-        setPage(page + 1);
+        console.log('fetching');
         if (fetching) {
-            getRoverPhotos('curiosity', 150, page + 1)
-            .then(response => {
-                setPhotos([...photos, ...response.photos]);
-            })
+            setPage(page + 1);
+            getRoverPhotos(rover, sol, page + 1)
+            .then(response => setPhotos([...photos, ...response.photos]))
             .finally(() => setFetching(false));
         }
     }, [fetching])
 
     const handleScroll = (event) => {
-        if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 100) {
+        if ((event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 50) && photos.length < total) {
             setFetching(true);
         }
     }

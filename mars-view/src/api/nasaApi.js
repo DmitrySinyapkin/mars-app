@@ -8,6 +8,11 @@ async function createFetch(url) {
 }
 
 export const getRoverPhotos = (rover, sol, page) => {
-    const url = BASE_URL + rover + '/photos?sol=' + sol + '&page=' + page + '&api_key=' + API_KEY_VALUE;
+    const url = BASE_URL + '/rovers/' + rover + '/photos?sol=' + sol + '&page=' + page + '&api_key=' + API_KEY_VALUE;
+    return createFetch(url);
+}
+
+export const getRoverInfo = (rover) => {
+    const url = BASE_URL + '/manifests/' + rover + '?api_key=' + API_KEY_VALUE;
     return createFetch(url);
 }

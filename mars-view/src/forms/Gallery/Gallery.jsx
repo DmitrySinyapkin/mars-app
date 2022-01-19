@@ -3,6 +3,7 @@ import './Gallery.css';
 import { getRoverPhotos, getRoverInfo } from "../../api/nasaApi";
 import Loader from "../../components/Loader/Loader";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
+import SelectionBlock from "../../components/SelectionBlock/SelectionBlock";
 
 const Gallery = () => {
     const [loading, setLoading] = useState(true);
@@ -24,12 +25,21 @@ const Gallery = () => {
     }, [])
 
     useEffect(() => {
+        getRoverInfo(rover)
+            .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
+        getRoverPhotos(rover, sol, page)
+            .then(response => {
+                setPhotos(response.photos);
+                setLoading(false);
+            });
+    }, [rover, sol])
+
+    useEffect(() => {
         document.addEventListener('scroll', handleScroll);
         return () => document.removeEventListener('scroll', handleScroll);
     }, [])
 
     useEffect(() => {
-        console.log('fetching');
         if (fetching) {
             getRoverPhotos(rover, sol, page + 1)
             .then(response => {
@@ -46,8 +56,15 @@ const Gallery = () => {
         }
     }
 
+    const handleSelection = (rover, sol) => {
+        setLoading(true);
+        setRover(rover);
+        setSol(sol);
+    }
+
     return (
         <div className="gallery">
+            <SelectionBlock handler={handleSelection} />
             {loading ? <div className="loader__container"><Loader /></div>
                 : <div className="gallery__cantainer">
                     {photos.map((item, index) => 

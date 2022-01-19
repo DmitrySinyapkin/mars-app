@@ -9,15 +9,15 @@ const About = () => {
             <Typewriter onInit={(typewriter) => {
                 typewriter
                     .typeString(ABOUT_TEXT[0])
-                    .pauseFor(300)
+                    .pauseFor(200)
                     .typeString(ABOUT_TEXT[1])
-                    .pauseFor(300)
+                    .pauseFor(200)
                     .typeString(ABOUT_TEXT[2])
-                    .pauseFor(300)
+                    .pauseFor(200)
                     .typeString(ABOUT_TEXT[3])
-                    .pauseFor(300)
+                    .pauseFor(200)
                     .typeString(ABOUT_TEXT[4])
-                    .pauseFor(300)
+                    .pauseFor(200)
                     .start()
             }}
             />

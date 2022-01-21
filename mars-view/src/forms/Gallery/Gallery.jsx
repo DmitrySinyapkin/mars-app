@@ -15,19 +15,24 @@ const Gallery = () => {
     const [page, setPage] = useState(1);
     const [fetching, setFetching] = useState(false);
     const [noPhoto, setNoPhoto] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        setNoPhoto(false);
         getRoverInfo(rover)
             .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
         getRoverPhotos(rover, sol, page)
             .then(response => {
                 setPhotos(response.photos);
                 setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false)
+                setError(true);
             });
     }, [])
 
     useEffect(() => {
+        setError(false);
         setNoPhoto(false);
         getRoverInfo(rover)
             .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
@@ -41,6 +46,10 @@ const Gallery = () => {
                     setPage(1);
                 }
                 setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false)
+                setError(true);
             });
     }, [rover, sol])
 
@@ -83,7 +92,7 @@ const Gallery = () => {
                 </div>
             }
             {fetching && photos.length < total && <div className="loader__container_2"><Loader /></div>}
-            {noPhoto && <div className="gallery__no-photo-message">
+            {noPhoto && <div className="gallery__message">
                     <Typewriter onInit={(typewriter) => {
                         typewriter
                             .typeString('There are no photos taken this sol')
@@ -93,6 +102,15 @@ const Gallery = () => {
                     />
                 </div>
             }
+            {error && <div className="gallery__message">
+                    <Typewriter onInit={(typewriter) => {
+                        typewriter
+                            .typeString('The request failed! Please, try again later.')
+                            .pauseFor(200)
+                            .start()
+                        }}
+                    />
+                </div>}
         </div>
     );
 }

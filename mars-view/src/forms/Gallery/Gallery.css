@@ -16,7 +16,7 @@
   gap: 10px;
   flex-wrap: wrap;
 }
-.gallery .gallery__no-photo-message {
+.gallery .gallery__message {
   margin-top: 50px;
   font-family: Unicephalon;
   text-align: center;

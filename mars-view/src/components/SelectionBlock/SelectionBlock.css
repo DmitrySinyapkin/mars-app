@@ -5,6 +5,7 @@
   gap: 10px;
   align-items: center;
   border: 3px solid white;
+  border-top: none;
   padding: 10px 20px;
   z-index: 10;
   position: fixed;
@@ -27,10 +28,11 @@
   color: black;
 }
 .selection .selection__sol {
-  width: 100px;
+  width: 70px;
   background: white;
   color: black;
   font-size: 20px;
+  text-align: right;
 }
 .selection .selection__button {
   width: 200px;

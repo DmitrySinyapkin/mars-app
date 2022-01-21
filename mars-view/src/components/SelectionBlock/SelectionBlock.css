@@ -20,15 +20,22 @@
   width: 200px;
   background: white;
   color: black;
+  font-size: 20px;
+}
+.selection .selection__rover option {
+  background: white;
+  color: black;
 }
 .selection .selection__sol {
   width: 100px;
   background: white;
   color: black;
+  font-size: 20px;
 }
 .selection .selection__button {
   width: 200px;
   height: 50px;
+  border-radius: 5px;
   background: white;
   color: black;
   font-family: Unicephalon;

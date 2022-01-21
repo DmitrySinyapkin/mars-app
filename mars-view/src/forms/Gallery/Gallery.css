@@ -1,9 +1,10 @@
 .gallery {
   width: 100%;
   padding: 10px;
+  padding-top: 230px;
 }
 .gallery .loader__container {
-  margin-top: 20px;
+  margin-top: 50px;
 }
 .gallery .gallery__cantainer {
   width: 100%;
@@ -11,5 +12,4 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: 205px;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './Gallery.css';
+import Typewriter from "typewriter-effect";
 import { getRoverPhotos, getRoverInfo } from "../../api/nasaApi";
 import Loader from "../../components/Loader/Loader";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
@@ -8,13 +9,15 @@ import SelectionBlock from "../../components/SelectionBlock/SelectionBlock";
 const Gallery = () => {
     const [loading, setLoading] = useState(true);
     const [rover, setRover] = useState('curiosity');
-    const [sol, setSol] = useState(2);
+    const [sol, setSol] = useState(0);
     const [total, setTotal] = useState(0);
     const [photos, setPhotos] = useState([]);
     const [page, setPage] = useState(1);
     const [fetching, setFetching] = useState(false);
+    const [noPhoto, setNoPhoto] = useState(false);
 
     useEffect(() => {
+        setNoPhoto(false);
         getRoverInfo(rover)
             .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
         getRoverPhotos(rover, sol, page)
@@ -25,11 +28,18 @@ const Gallery = () => {
     }, [])
 
     useEffect(() => {
+        setNoPhoto(false);
         getRoverInfo(rover)
             .then(response => setTotal(response.photo_manifest.photos[sol].total_photos));
-        getRoverPhotos(rover, sol, page)
+        getRoverPhotos(rover, sol, 1)
             .then(response => {
-                setPhotos(response.photos);
+                if (response.photos.length === 0) {
+                    setNoPhoto(true);
+                    setPhotos([]);
+                } else {
+                    setPhotos(response.photos);
+                    setPage(1);
+                }
                 setLoading(false);
             });
     }, [rover, sol])
@@ -72,7 +82,17 @@ const Gallery = () => {
                     )}
                 </div>
             }
-            {fetching && photos.length < total && <div className="loader__container"><Loader /></div>}
+            {fetching && photos.length < total && <div className="loader__container_2"><Loader /></div>}
+            {noPhoto && <div className="gallery__no-photo-message">
+                    <Typewriter onInit={(typewriter) => {
+                        typewriter
+                            .typeString('There are no photos taken this sol')
+                            .pauseFor(200)
+                            .start()
+                        }}
+                    />
+                </div>
+            }
         </div>
     );
 }

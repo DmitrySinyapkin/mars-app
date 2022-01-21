@@ -4,6 +4,9 @@
   padding-top: 230px;
 }
 .gallery .loader__container {
+  margin-top: 200px;
+}
+.gallery .loader__container_2 {
   margin-top: 50px;
 }
 .gallery .gallery__cantainer {
@@ -12,4 +15,11 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+.gallery .gallery__no-photo-message {
+  margin-top: 50px;
+  font-family: Unicephalon;
+  text-align: center;
+  font-size: 30px;
+  color: white;
 }

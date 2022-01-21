@@ -14,7 +14,7 @@ const SelectionBlock = ({handler}) => {
                 <option value="spirit">Spirit</option>
             </select>
             <div className="selection__label">Choose Martian sol:</div>
-            <input className="selection__sol" type="text" onChange={(event) => setSol(event.target.value)} />
+            <input className="selection__sol" type="text" value={sol + 1} onChange={(event) => setSol(event.target.value - 1)} />
             <button className="selection__button" onClick={() => handler(rover, sol)}>Show photos</button> 
         </div>
     );

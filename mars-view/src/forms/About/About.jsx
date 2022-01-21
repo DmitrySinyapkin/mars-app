@@ -1,6 +1,6 @@
 import React from "react";
 import './About.css';
-import Typewriter from "typewriter-effect"
+import Typewriter from "typewriter-effect";
 import { ABOUT_TEXT } from "../../constants/aboutPageText";
 
 const About = () => {

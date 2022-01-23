@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import './Gallery.css';
 import Typewriter from "typewriter-effect";
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { getRoverPhotos, getRoverInfo } from "../../api/nasaApi";
 import Loader from "../../components/Loader/Loader";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
@@ -19,6 +20,8 @@ const Gallery = () => {
     const [error, setError] = useState(false);
     const [carouselOpened, setCarouselOpened] = useState(false);
     const [current, setCurrent] = useState(0);
+
+    const modal = useRef(null);
 
     useEffect(() => {
         getRoverInfo(rover)
@@ -72,6 +75,10 @@ const Gallery = () => {
         }
     }, [fetching])
 
+    useLayoutEffect(() => {
+        clearAllBodyScrollLocks();
+    }, [])
+
     const handleScroll = (event) => {
         if (event.target.documentElement.scrollHeight - (event.target.documentElement.scrollTop + window.innerHeight) < 20 && photos.length === total) {
             setFetching(true);
@@ -85,11 +92,13 @@ const Gallery = () => {
     }
 
     const openCarousel = (index) => {
+        disableBodyScroll(modal);
         setCarouselOpened(true);
         setCurrent(index);
     }
 
     const closeCarousel = () => {
+        enableBodyScroll(modal);
         setCarouselOpened(false);
     }
 
@@ -127,6 +136,7 @@ const Gallery = () => {
                 </div>
             }
             {carouselOpened && <Carousel
+                    ref={modal}
                     images={photos}
                     currentIndex={current}
                     isOpen={carouselOpened}

@@ -5,6 +5,7 @@ import { getRoverPhotos, getRoverInfo } from "../../api/nasaApi";
 import Loader from "../../components/Loader/Loader";
 import PhotoPreview from "../../components/PhotoPreview/PhotoPreview";
 import SelectionBlock from "../../components/SelectionBlock/SelectionBlock";
+import Carousel from "../../components/Carousel/Carousel";
 
 const Gallery = () => {
     const [loading, setLoading] = useState(true);
@@ -16,6 +17,8 @@ const Gallery = () => {
     const [fetching, setFetching] = useState(false);
     const [noPhoto, setNoPhoto] = useState(false);
     const [error, setError] = useState(false);
+    const [carouselOpened, setCarouselOpened] = useState(false);
+    const [current, setCurrent] = useState(0);
 
     useEffect(() => {
         getRoverInfo(rover)
@@ -81,13 +84,24 @@ const Gallery = () => {
         setSol(sol);
     }
 
+    const openCarousel = (index) => {
+        setCarouselOpened(true);
+        setCurrent(index);
+    }
+
+    const closeCarousel = () => {
+        setCarouselOpened(false);
+    }
+
     return (
         <div className="gallery">
             <SelectionBlock handler={handleSelection} />
             {loading ? <div className="loader__container"><Loader /></div>
                 : <div className="gallery__cantainer">
-                    {photos.map((item, index) => 
-                        <PhotoPreview img={item.img_src} key={index} />
+                    {photos.map((item, index) =>
+                        <div onClick={() => openCarousel(index)} key={index}> 
+                            <PhotoPreview img={item.img_src} />
+                        </div>
                     )}
                 </div>
             }
@@ -110,7 +124,15 @@ const Gallery = () => {
                             .start()
                         }}
                     />
-                </div>}
+                </div>
+            }
+            {carouselOpened && <Carousel
+                    images={photos}
+                    currentIndex={current}
+                    isOpen={carouselOpened}
+                    closeHandler={closeCarousel}
+                />
+            }
         </div>
     );
 }

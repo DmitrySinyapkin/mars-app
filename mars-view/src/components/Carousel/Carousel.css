@@ -50,12 +50,39 @@
   color: white;
 }
 .carousel .carousel__wrapper .carousel__body .carousel__container {
-  display: flex;
-  justify-content: center;
-}
-.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img img {
-  width: 45vw;
+  width: 100%;
   height: 35vw;
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper {
+  position: relative;
+  overflow: visible;
+  perspective: 800px;
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper .carousel__img {
+  width: 44vw;
+  height: 35vw;
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper .carousel__img img {
+  width: 44vw;
+  height: 35vw;
+  border: 1px solid white;
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper .img_current {
+  position: absolute;
+  top: 0px;
+  left: 28vw;
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper .img_left {
+  position: absolute;
+  top: 0px;
+  left: -7vw;
+  transform: rotateY(90deg);
+}
+.carousel .carousel__wrapper .carousel__body .carousel__container .carousel__img-wrapper .img_right {
+  position: absolute;
+  top: 0px;
+  right: -10vw;
+  transform: rotateY(-90deg);
 }
 .carousel_opened {
   display: block;

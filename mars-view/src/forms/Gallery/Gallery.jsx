@@ -65,18 +65,6 @@ const Gallery = () => {
     }, [])
 
     useEffect(() => {
-        const onKeydown = (event) => {
-            if (event.key === 'Escape') {
-                closeCarousel();
-            }
-        }
-        document.addEventListener('keydown', onKeydown);
-        return () => {
-          document.removeEventListener('keydown', onKeydown);
-        };
-      }, []);
-
-    useEffect(() => {
         if (fetching) {
             getRoverPhotos(rover, sol, page + 1)
             .then(response => {

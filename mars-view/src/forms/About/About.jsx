@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import './About.css';
 import Typewriter from "typewriter-effect";
 import { ABOUT_TEXT } from "../../constants/aboutPageText";
+import { Link } from "react-router-dom";
+import { gsap } from 'gsap';
 
 const About = () => {
+    const linkRef = useRef(null);
+
+    useEffect(() => {
+        gsap.to(linkRef.current, {duration: 0.3, delay: 23.2, visibility: 'visible'});
+    }, [])
+
     return (
         <div className="about">
             <Typewriter onInit={(typewriter) => {
@@ -21,6 +29,7 @@ const About = () => {
                     .start()
             }}
             />
+            <div className="about__link" ref={linkRef}><Link to="/gallery">move to gallery</Link></div>
         </div>
     );
 }

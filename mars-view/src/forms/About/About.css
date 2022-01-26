@@ -6,3 +6,11 @@
   text-align: center;
   font-size: 30px;
 }
+.about .about__link {
+  margin-top: 15px;
+  font-size: 40px;
+  visibility: hidden;
+}
+.about .about__link:hover {
+  transform: rotate(1deg);
+}

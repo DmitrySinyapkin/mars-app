@@ -89,6 +89,8 @@ const Gallery = () => {
         setLoading(true);
         setRover(rover);
         setSol(sol);
+        setPhotos([]);
+        setPage(1);
     }
 
     const openCarousel = (index) => {

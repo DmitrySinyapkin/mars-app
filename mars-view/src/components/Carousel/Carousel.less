@@ -63,6 +63,8 @@
                     transform-style: preserve-3d;
 
                     .carousel__img {
+                        position: absolute;
+                        top: 0px;
                         width: 34%;
                         height: 35vw;
 
@@ -72,28 +74,6 @@
                             object-fit: cover;
                             border: 1px solid white;
                         }
-                    }
-
-                    .img_current {
-                        position: absolute;
-                        top: 0px;
-                        left: 33%;
-                    }
-
-                    .img_left {
-                        position: absolute;
-                        top: 0px;
-                        left: -4%;
-                        transform-origin: right center;
-                        transform: rotateY(60deg);
-                    }
-
-                    .img_right {
-                        position: absolute;
-                        top: 0px;
-                        right: -4%;
-                        transform-origin: left center;
-                        transform: rotateY(-60deg);
                     }
                 }
             }

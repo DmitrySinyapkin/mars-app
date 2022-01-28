@@ -5,8 +5,7 @@ import { gsap } from 'gsap';
 const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
     const [current, setCurrent] = useState(0);
     const [photos, setPhotos] = useState([]);
-    const [clickNext, setClickNext] = useState(false);
-    const [clickPrev, setClickPrev] = useState(false);
+    const [move, setMove] = useState('none');
 
     const imgRefs = useRef([]);
     imgRefs.current = [];
@@ -60,19 +59,24 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
         };
       }, []);
 
-    useLayoutEffect(() => {
-        gsap.to(imgRefs.current[current], {duration: 1, x: '-108.5%', transformOrigin: 'right center', rotationY: 60});
-        gsap.to(imgRefs.current[current + 1], {duration: 1, delay: 0.5, x: '-108.5%', rotationY: 0});
-        gsap.to(imgRefs.current[current - 1], {delay: 0.1, display: 'none'});
-        gsap.to(imgRefs.current[current + 2], {delay: 1.5, display: 'block'});
-    }, [clickNext]);
-
-    useLayoutEffect(() => {
-        gsap.to(imgRefs.current[current], {duration: 1, x: "108.5%", transformOrigin: 'left center', rotationY: -60});
-        gsap.to(imgRefs.current[current - 1], {duration: 1, delay: 1, x: "108.5%", rotationY: 0});
-        gsap.to(imgRefs.current[current + 1], {delay: 0.1, display: 'none'});
-        gsap.to(imgRefs.current[current - 2], {delay: 1.5, display: 'block'});
-    }, [clickPrev]);
+    useEffect(() => {
+        console.log('useEffect works');
+        if (move === 'next') {
+            console.log('Next starts');
+            gsap.to(imgRefs.current[current], {duration: 1, x: '-108.5%', transformOrigin: 'right center', rotationY: 60});
+            gsap.to(imgRefs.current[current + 1], {duration: 1, delay: 0.5, x: '-108.5%', rotationY: 0});
+            gsap.to(imgRefs.current[current - 1], {delay: 0.1, display: 'none'});
+            gsap.to(imgRefs.current[current + 2], {delay: 1.5, display: 'block'});
+            console.log('Next ends');
+        } else if (move === 'prev') {
+            console.log('Prev starts');
+            gsap.to(imgRefs.current[current], {duration: 1, x: "108.5%", transformOrigin: 'left center', rotationY: -60});
+            gsap.to(imgRefs.current[current - 1], {duration: 1, delay: 1, x: "108.5%", rotationY: 0});
+            gsap.to(imgRefs.current[current + 1], {delay: 0.1, display: 'none'});
+            gsap.to(imgRefs.current[current - 2], {delay: 1.5, display: 'block'});
+            console.log('Prev starts');
+        }
+    }, [move]);
 
     const addToRefs = (item) => {
         if (item && !imgRefs.current.includes(item)) {
@@ -81,16 +85,18 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
     }
 
     const handleNextClick = () => {
-        if (current < imgRefs.current.length - 1) {
-            setClickNext(!clickNext);
-            setCurrent(current + 1);
+        if (current < (photos.length - 1)) {
+            setMove('next');
+            setCurrent(prevState => prevState + 1);
+            setMove('');
         }
     }
 
     const handlePrevClick = () => {
         if (current > 0) {
-            setClickPrev(!clickPrev);
-            setCurrent(current - 1);
+            setMove('prev');
+            setCurrent(prevState => prevState - 1);
+            setMove('');
         }
     }
 
@@ -121,8 +127,8 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
                     </div>
                 </div>
                 <div className="carousel__nav">
-                    <div className="carousel__prev-btn" onClick={() => handlePrevClick()}>&lt;</div>
-                    <div className="carousel__next-btn" onClick={() => handleNextClick()}>&gt;</div>
+                    {current > 0 && <div className="carousel__prev-btn" onClick={handlePrevClick}>&lt;</div>}
+                    {current < (photos.length - 1) &&<div className="carousel__next-btn" onClick={handleNextClick}>&gt;</div>}
                 </div>
             </div>
         </div>

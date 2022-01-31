@@ -13,6 +13,11 @@
   border: 3px solid white;
   z-index: 10;
 }
+@media (max-width: 380px) {
+  .header {
+    height: 80px;
+  }
+}
 .header .header__container {
   margin-left: 30px;
   margin-right: 30px;
@@ -25,6 +30,11 @@
 @media (min-width: 1200px) {
   .header .header__container {
     width: 1100px;
+  }
+}
+@media (max-width: 380px) {
+  .header .header__container {
+    margin-top: 20px;
   }
 }
 .header .header__container .header__name {

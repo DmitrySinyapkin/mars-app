@@ -12,6 +12,11 @@
   top: 220px;
   left: 0;
 }
+@media (max-width: 380px) {
+  .selection {
+    top: 80px;
+  }
+}
 .selection .selection__label {
   color: white;
   font-family: Unicephalon;

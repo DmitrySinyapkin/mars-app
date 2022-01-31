@@ -46,9 +46,9 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
     useEffect(() => {
         const onKeydown = (event) => {
             if (event.key === 'ArrowLeft') {
-                handlePrevClick();
+                setMove('prev');
             } if (event.key === 'ArrowRight') {
-                handleNextClick();
+                setMove('next');
             } if (event.key === 'Escape') {
                 closeHandler();
             }

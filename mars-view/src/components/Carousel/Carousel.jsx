@@ -60,21 +60,18 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
       }, []);
 
     useEffect(() => {
-        console.log('useEffect works');
-        if (move === 'next') {
-            console.log('Next starts');
-            gsap.to(imgRefs.current[current], {duration: 1, x: '-108.5%', transformOrigin: 'right center', rotationY: 60});
-            gsap.to(imgRefs.current[current + 1], {duration: 1, delay: 0.5, x: '-108.5%', rotationY: 0});
+        if (move === 'next' && current < (photos.length - 1)) {
+            gsap.to(imgRefs.current[current], {duration: 1, x: '-0.5%', transformOrigin: 'right center', rotationY: 60});
+            gsap.to(imgRefs.current[current + 1], {duration: 1, delay: 0.5, x: '-0.5%', rotationY: 0});
             gsap.to(imgRefs.current[current - 1], {delay: 0.1, display: 'none'});
             gsap.to(imgRefs.current[current + 2], {delay: 1.5, display: 'block'});
-            console.log('Next ends');
-        } else if (move === 'prev') {
-            console.log('Prev starts');
-            gsap.to(imgRefs.current[current], {duration: 1, x: "108.5%", transformOrigin: 'left center', rotationY: -60});
-            gsap.to(imgRefs.current[current - 1], {duration: 1, delay: 1, x: "108.5%", rotationY: 0});
+            handleNextClick();
+        } else if (move === 'prev' && current > 0) {
+            gsap.to(imgRefs.current[current], {duration: 1, x: "0.5%", transformOrigin: 'left center', rotationY: -60});
+            gsap.to(imgRefs.current[current - 1], {duration: 1, delay: 0.5, x: "0.5%", rotationY: 0});
             gsap.to(imgRefs.current[current + 1], {delay: 0.1, display: 'none'});
             gsap.to(imgRefs.current[current - 2], {delay: 1.5, display: 'block'});
-            console.log('Prev starts');
+            handlePrevClick();
         }
     }, [move]);
 
@@ -85,19 +82,13 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
     }
 
     const handleNextClick = () => {
-        if (current < (photos.length - 1)) {
-            setMove('next');
-            setCurrent(prevState => prevState + 1);
-            setMove('');
-        }
+        setCurrent(prevState => prevState + 1);
+        setMove('');
     }
 
     const handlePrevClick = () => {
-        if (current > 0) {
-            setMove('prev');
-            setCurrent(prevState => prevState - 1);
-            setMove('');
-        }
+        setCurrent(prevState => prevState - 1);
+        setMove('');
     }
 
     return (
@@ -127,8 +118,8 @@ const Carousel = ({images, currentIndex, isOpen, closeHandler}) => {
                     </div>
                 </div>
                 <div className="carousel__nav">
-                    {current > 0 && <div className="carousel__prev-btn" onClick={handlePrevClick}>&lt;</div>}
-                    {current < (photos.length - 1) &&<div className="carousel__next-btn" onClick={handleNextClick}>&gt;</div>}
+                    {current > 0 && <div className="carousel__prev-btn" onClick={() => setMove('prev')}>&lt;</div>}
+                    {current < (photos.length - 1) &&<div className="carousel__next-btn" onClick={() => setMove('next')}>&gt;</div>}
                 </div>
             </div>
         </div>

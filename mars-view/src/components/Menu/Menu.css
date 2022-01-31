@@ -1,0 +1,21 @@
+.menu__container {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+.menu__container .menu__item {
+  margin: 0 5px;
+  font-family: Unicephalon;
+  font-size: 30px;
+  color: white;
+}
+@media (min-width: 491px) and (max-width: 540px) {
+  .menu__container .menu__item {
+    font-size: 25px;
+  }
+}
+@media (max-width: 490px) {
+  .menu__container .menu__item {
+    font-size: 20px;
+  }
+}

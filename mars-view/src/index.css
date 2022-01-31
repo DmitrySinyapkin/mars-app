@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "DataTwenty";
+  src: local("DataTwenty"),
+   url("./fonts/datatwenty.otf") format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Unicephalon";
+  src: local("Unicephalon"),
+   url("./fonts/unicephalon.otf") format("opentype");
+  font-weight: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: black;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  transform: rotate(3deg);
+}

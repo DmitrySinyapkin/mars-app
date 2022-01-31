@@ -1,0 +1,50 @@
+@keyframes rotation {
+	0% {transform: rotate(0deg);}
+	100% {transform: rotate(360deg);}
+}
+
+.planet {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.loader__mars {
+    .planet;
+    margin: 90px auto;
+    background-image: url('../../images/mars-texture-small.jpg');
+
+    .loader__rotate_1 {
+        .planet;
+        background: transparent;
+        position: relative;
+        animation: rotation 6s linear infinite;
+
+        .loader__phobos {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-image: url('../../images/phobos-texture-small.jpg');
+            position: absolute;
+            top: -50px;
+            left: 75px;
+        }
+    }
+
+    .loader__rotate_2 {
+        .planet;
+        background: transparent;
+        position: relative;
+        animation: rotation 4s linear infinite;
+
+        .loader__deimos {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-image: url('../../images/deimos-texture-small.jpg');
+            position: absolute;
+            top: 75px;
+            left: -90px;
+        }
+    }
+}

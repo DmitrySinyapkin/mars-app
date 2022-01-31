@@ -1,0 +1,20 @@
+@size: 300px;
+.sizes {
+    width: @size;
+    height: @size;
+}
+
+.preview {
+    .sizes;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+        .sizes;
+        transition: all 1s ease-out;
+    }
+
+    img:hover {
+        transform: scale(1.2);
+    }
+}
